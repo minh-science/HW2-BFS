@@ -39,12 +39,13 @@ class Graph:
         * If there is an end node input and a path does not exist, return None
 
         """
-        Q = []
-        visited = []
-        Q.append(start)
+        Q = [] # initialize the queue
+        visited = [] # initialize the list of visited nodes 
+        Q.append(start) # append start to the queue 
         visited.append(start)
         N = []
         # print("self.graph:", self.graph.nodes())
+        paths = [] 
 
         # maybe try using successors? is a generator though
         # print(f"successors of start (node: {start}):", [i for i in self.graph.successors(start)] )
@@ -52,8 +53,8 @@ class Graph:
             # print("len Q:", len(Q) ) 
             v = Q.pop()
             # print("this is v", v) 
-            N = []
-            ed = self.graph.edges(nbunch = v) #neighbits
+            N = [] # CHECK THIS, N IS DEFINED TWICE
+            ed = self.graph.edges(nbunch = v) #neighbors
             print(f"edges of v: {v}:", ed)
             N = [i[1] for i in ed] 
             # i = next(self.graph.successors(v))
@@ -70,16 +71,40 @@ class Graph:
             # print("neighbors of of start", N)
             # print(self.graph)
             # # print("this is W", w)
+
+            # append to frontier
             for w in N: 
+            # find path from start to end
+                if end != None and v == end:
+                    print(visited)
+                    return "completed search", visited
                 if w not in visited: 
                     visited.append(w)
                     Q.append(w)
-        print("visited nodes", visited)
-        return
+
+
+        # print("visited nodes", visited)
+        return visited
+# use if else statements to figure out the returns 
 
 # Graph(filename ="../data/tiny_network.adjlist").bfs(start = "Martin Kampmann")
 
-print( Graph(filename= "../data/tiny_network.adjlist").bfs(start= "Martin Kampmann") )
+A = Graph(filename= "data/citation_network.adjlist").bfs(start= "Martin Kampmann", end = "Michael Keiser") 
+
+B = Graph(filename= "data/citation_network.adjlist").bfs(start= "Michael Keiser", end = "Martin Kampmann") 
+
+A_set = A[1]
+B_set = B[1]
+
+short_path = []
+for i in A_set:
+    for j in B_set:
+        if i == j:
+            short_path.append(j)
+print("shortest path:", short_path)
+
+    
+
 
 # print( Graph(filename= "../data/citation_network.adjlist").bfs(start= "Martin Kampmann") )
 

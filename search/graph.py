@@ -35,9 +35,9 @@ class Graph:
             # i = next(self.graph.successors(v))
 
             # find path from start to end
-            # if end != None and v == end:
-            #     print(visited)
-            #     return "completed search", visited
+            if end != None and v == end:
+                print(visited)
+                return "completed search", visited
             
             # append to frontier
             for w in N: 
@@ -50,7 +50,7 @@ class Graph:
         return visited
 
 
-# A = Graph(filename= "data/citation_network.adjlist").bfs(start= "Martin Kampmann", end = "Michael Keiser") 
+A = Graph(filename= "data/citation_network.adjlist").bfs(start= "Martin Kampmann", end = "Michael Keiser") 
 # B = Graph(filename= "data/citation_network.adjlist").bfs(start= "Michael Keiser", end = "Martin Kampmann") 
 
 

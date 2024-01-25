@@ -4,8 +4,8 @@ from search import graph
 import networkx as nx
 
 # filename= "data/citation_network.adjlist"
-filename= "data/tiny_network.adjlist"
-graph_1 = nx.read_adjlist(filename, create_using=nx.DiGraph, delimiter=";")
+graph_1 = nx.read_adjlist("data/tiny_network.adjlist", create_using=nx.DiGraph, delimiter=";")
+graph_2 = nx.read_adjlist("data/citation_network.adjlist", create_using=nx.DiGraph, delimiter=";")
 
 def test_bfs_traversal():
     """
@@ -17,8 +17,7 @@ def test_bfs_traversal():
     """
     my_bfs = graph.Graph(filename= "data/tiny_network.adjlist").bfs(start= "Martin Kampmann")
     nx_bfs = [x[1] for x in nx.bfs_edges(graph_1, source = "Martin Kampmann") ]
-    my_bfs.remove('Martin Kampmann')
-    # print(nx_bfs)
+    my_bfs.remove('Martin Kampmann') # written BFS algorithm contains the start node 
     assert my_bfs == nx_bfs
 
 test_bfs_traversal()    
@@ -34,4 +33,9 @@ def test_bfs():
     Include an additional test for nodes that are not connected 
     which should return None. 
     """
-    pass
+    my_bfs = graph.Graph(filename= "data/citation_network.adjlist").bfs(start= "Martin Kampmann")
+    nx_bfs = [x[1] for x in nx.bfs_edges(graph_2, source = "Martin Kampmann") ]
+    my_bfs.remove('Martin Kampmann') # written BFS algorithm contains the start node 
+    assert my_bfs == nx_bfs
+
+test_bfs()

@@ -15,9 +15,12 @@ def test_bfs_traversal():
     that all nodes are being traversed (ie. returns 
     the right number of nodes, in the right order, etc.)
     """
-    print("my bfs", graph.Graph(filename= "data/tiny_network.adjlist").bfs(start= "Martin Kampmann") )
+    my_bfs = graph.Graph(filename= "data/tiny_network.adjlist").bfs(start= "Martin Kampmann") 
     # print( [x for x in nx.bfs_tree(G = graph.Graph(filename= "data/citation_network.adjlist"), source = "Martin Kampmann") ])
-    print("other bfs", [x[1] for x in nx.bfs_edges(graph_1, source = "Martin Kampmann") ] )
+    nx_bfs = [x[1] for x in nx.bfs_edges(graph_1, source = "Martin Kampmann") ] 
+    print(my_bfs[0])
+    print(nx_bfs)
+    # assert my_bfs[0] == nx_bfs
 
 test_bfs_traversal()    
 

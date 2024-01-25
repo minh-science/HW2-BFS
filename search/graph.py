@@ -11,24 +11,6 @@ class Graph:
         Initialization of graph object 
         """
         self.graph = nx.read_adjlist(filename, create_using=nx.DiGraph, delimiter=";") # DIRECTED GRAPH!!! no actual direction
-
-    # def f_neighbors(self, start):
-        # print( [i for i in self.graph.nodes()] )
-        # print(type(self.graph))
-        # n_iter = self.graph.successors(start)
-        # print( next(n_iter)) 
-        # for i in self.graph.nodes(): 
-            # print(i)
-            # if i == start:
-                # print("look here", self.graph.nodes(i))
-                # n_dict = next( self.graph.adjacency() )
-        # for i, n_dict in self.graph.adjacency():
-        #     # print(i)
-        #     if i == start:
-        #     #     # print(self.graph.nodes())
-        #         print(f"intermediate nodes of {i}:", n_dict)
-        # print(self.graph.nodes())
-        # return 
     
     def bfs(self, start, end=None):
         """
@@ -39,80 +21,50 @@ class Graph:
         * If there is an end node input and a path does not exist, return None
 
         """
-        Q = [] # initialize the queue
-        visited = [] # initialize the list of visited nodes 
-        Q.append(start) # append start to the queue 
-        visited.append(start)
-        N = []
-        # print("self.graph:", self.graph.nodes())
-        paths = [] 
+        Q = [start] # initialize the queue
+        visited = [start] # initialize the list of visited nodes  
+        # paths = [] 
 
         # maybe try using successors? is a generator though
         # print(f"successors of start (node: {start}):", [i for i in self.graph.successors(start)] )
-        while len(Q) > 0:
-            # print("len Q:", len(Q) ) 
-            v = Q.pop()
-            # print("this is v", v) 
-            N = [] # CHECK THIS, N IS DEFINED TWICE
-            ed = self.graph.edges(nbunch = v) #neighbors
-            print(f"edges of v: {v}:", ed)
-            N = [i[1] for i in ed] 
+        while len(Q) != 0:
+            v = Q.pop(0)
+            # ed = self.graph.edges(nbunch = v) #neighbors
+            N = list(self.graph.neighbors(v))
+            # print(N)
             # i = next(self.graph.successors(v))
 
-            # print(type(i), i )
-            # print(type(N), N)
-            # N_tuple = ()
-            # if i not in N_tuple: 
-            #     N_tuple + (next(self.graph.successors(v) ))
-            # if i not in N:
-            #     N.append(next(self.graph.successors(v) ) )
-            #     print(i, N)
+            # find path from start to end
+            # if end != None and v == end:
+            #     print(visited)
+            #     return "completed search", visited
             
-            # print("neighbors of of start", N)
-            # print(self.graph)
-            # # print("this is W", w)
-
             # append to frontier
             for w in N: 
-            # find path from start to end
-                if end != None and v == end:
-                    print(visited)
-                    return "completed search", visited
                 if w not in visited: 
+                    # print(w)
                     visited.append(w)
                     Q.append(w)
-
+                    print(visited)
 
         # print("visited nodes", visited)
         return visited
-# use if else statements to figure out the returns 
-
-# Graph(filename ="../data/tiny_network.adjlist").bfs(start = "Martin Kampmann")
-
-A = Graph(filename= "data/citation_network.adjlist").bfs(start= "Martin Kampmann", end = "Michael Keiser") 
-
-B = Graph(filename= "data/citation_network.adjlist").bfs(start= "Michael Keiser", end = "Martin Kampmann") 
-
-A_set = A[1]
-B_set = B[1]
-
-short_path = []
-for i in A_set:
-    for j in B_set:
-        if i == j:
-            short_path.append(j)
-print("shortest path:", short_path)
-
-    
 
 
-# print( Graph(filename= "../data/citation_network.adjlist").bfs(start= "Martin Kampmann") )
+# A = Graph(filename= "data/citation_network.adjlist").bfs(start= "Martin Kampmann", end = "Michael Keiser") 
+# B = Graph(filename= "data/citation_network.adjlist").bfs(start= "Michael Keiser", end = "Martin Kampmann") 
 
-# L = ["a", 'b', 'c']
-# print(L)
-# for i in range(0, len(L)):
-#     print(L.pop())
-# print(L)
+
+# filename= "data/tiny_network.adjlist"
+# graph_1 = nx.read_adjlist(filename, create_using=nx.DiGraph, delimiter=";")
+Test1 = Graph(filename= "data/tiny_network.adjlist").bfs(start= "Martin Kampmann") 
+
+# print("other bfs", [x[1] for x in nx.bfs_edges(graph_1, source = "Martin Kampmann") ] )
+
+# print("successors", [x  for x in nx.bfs_successors(graph_1, source = "Martin Kampmann") ] )
+print("Test1:", Test1)
+
+
 
 
 # try doing diksthras or whateber

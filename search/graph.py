@@ -31,9 +31,9 @@ class Graph:
 
         X = [] # discovered list of nodes
         Y = [] # frontier list of nodes 
-        d = {v:float('inf')  for v in V} # assign d for all to be very high (should be infinity)
+        d = {v:float('inf')  for v in V} # assign distances for all nodes other than the start node to be infinity
         d[start] = 0 
-        prev = {v : None for v in V}
+        prev = {v : None for v in V} # initialze dictionary to store the preceding node 
      
         while Q:
             v = Q.pop(0)

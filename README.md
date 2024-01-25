@@ -1,11 +1,18 @@
 # Assignment 2
+! [BuildStatus] (https://github.com/minh-science/HW2-BFS/workflows/HW2-BFS/badge.svg?event=push)
 Breadth-first search
 
-# Description of methods
-* Use BFS to perform search
+# Description of Methods
+* Use breadth-first search (BFS) to perform traversal
+	* Initializes a source node and adds it to a queue
+	* Removes an object from the queue (first in first out) and explore its neighbors
+		* Removed object is added to the discovered set 
+	* Repeat object removal until no additional paths remain 
+	* BFS will always find the shortest path to a reachable level as it explores each node level by level 
 * Use modified Dijkstra's algorithm to return shortest path 
-	* weights are all equal to 1 
-* A combined approach was implemented to make the bfs function able to return either a graph traversal or the shortest path between two nodes 
+	* Weights are all equal to 1 in this implementation
+	* The implementaiton uses lists to describe the both the discovered and frontier sets while using dictionaries to describe the distances and previous nodes 
+* A combined approach was implemented to make the bfs function able to return either a graph traversal or the shortest path between two nodes o
 
 # Assignment Overview
 The purpose of this assignment is to get you comfortable working with graph structures and to implement a breadth-first search function to traverse the graph and find the shortest path between nodes.
@@ -36,6 +43,7 @@ In test/test_bfs.py:
 
 * Write unit tests (in the test_bfs.py file) for your breadth first search
 * Replace these instructions with a brief description of bfs in your forked repo
+	* listed above in Description of Methods section
 	
 * Automate Testing with a [Github Actions](https://docs.github.com/en/actions)
 

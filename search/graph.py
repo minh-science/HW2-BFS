@@ -10,7 +10,7 @@ class Graph:
         """
         Initialization of graph object 
         """
-        self.graph = nx.read_adjlist(filename, create_using=nx.DiGraph, delimiter=";") # DIRECTED GRAPH!!! no actual direction
+        self.graph = nx.read_adjlist(filename, create_using=nx.DiGraph, delimiter=";") 
     
     def bfs(self, start, end=None):
         """
@@ -29,8 +29,8 @@ class Graph:
         if len(V) == 0:
             raise ValueError("has no nodes")
 
-        X = []
-        Y = []   
+        X = [] # discovered list of nodes
+        Y = [] # frontier list of nodes 
         d = {v:float('inf')  for v in V} # assign d for all to be very high (should be infinity)
         d[start] = 0 
         prev = {v : None for v in V}
@@ -38,19 +38,20 @@ class Graph:
         while Q:
             v = Q.pop(0)
             
-            # ed = self.graph.edges(nbunch = v) #neighbors
+            # get neighbors of current node 
             try:
                 N = list(self.graph.neighbors(v))
             except:
                 raise ValueError(f"no edges connecting start: {start}")
 
             
-            # append to frontier
+            # append neighbors to frontier
             for w in N: 
                 if w not in visited: 
                     visited.append(w)
                     Q.append(w)
 
+                # update distance and previous nodes 
                 if d[v] +1 < d[w]:
                     d[w] = d[v]+ 1
                     prev[w] = v
@@ -73,6 +74,16 @@ class Graph:
             return visited
         
     def construct_path(self, prev, start, end):
+        """reconstructs path from end node to start node
+
+        Args:
+            prev (dictionary): dictionary of previous nodes of all traversed nodes
+            start (string): the start node specified 
+            end (string): end node, previously specified
+
+        Returns:
+            dictionary: path from start node to end node
+        """
         path = []
         current_node = end
         while current_node is not None: 
@@ -80,6 +91,3 @@ class Graph:
             current_node = prev[current_node]
         return path
     
-        
-# test = Graph(filename= "data/tiny_network.adjlist").bfs(start= "Martin Kampmann", end = "Hani Goodarzi")
-# print(test )

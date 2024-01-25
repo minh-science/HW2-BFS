@@ -1,7 +1,7 @@
 # write tests for bfs
 import pytest
-from search import graph
 import networkx as nx
+from search import graph
 
 # filename= "data/citation_network.adjlist"
 tiny_network = nx.read_adjlist("data/tiny_network.adjlist", create_using=nx.DiGraph, delimiter=";") 

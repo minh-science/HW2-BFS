@@ -90,11 +90,10 @@ class Graph:
     
         
 
-A = Graph(filename= "data/tiny_network.adjlist").bfs(start= "Martin Kampmann", end = "Michael Keiser") 
-print(A)
+# A = Graph(filename= "data/tiny_network.adjlist").bfs(start= "Martin Kampmann", end = "Michael Keiser") 
 # B = Graph(filename= "data/citation_network.adjlist").bfs(start= "Michael Keiser", end = "Martin Kampmann") 
 
 
 
-Test1 = Graph(filename= "data/tiny_network.adjlist").bfs(start= "Martin Kampmann") 
+# Test1 = Graph(filename= "data/tiny_network.adjlist").bfs(start= "Martin Kampmann") 
 # print(Test1)

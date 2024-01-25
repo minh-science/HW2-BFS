@@ -4,8 +4,8 @@ from search import graph
 import networkx as nx
 
 # filename= "data/citation_network.adjlist"
-graph_1 = nx.read_adjlist("data/tiny_network.adjlist", create_using=nx.DiGraph, delimiter=";")
-graph_2 = nx.read_adjlist("data/citation_network.adjlist", create_using=nx.DiGraph, delimiter=";")
+tiny_network = nx.read_adjlist("data/tiny_network.adjlist", create_using=nx.DiGraph, delimiter=";") 
+citation_network = nx.read_adjlist("data/citation_network.adjlist", create_using=nx.DiGraph, delimiter=";")
 
 def test_bfs_traversal():
     """
@@ -16,13 +16,12 @@ def test_bfs_traversal():
     the right number of nodes, in the right order, etc.)
     """
     my_bfs = graph.Graph(filename= "data/tiny_network.adjlist").bfs(start= "Martin Kampmann")
-    nx_bfs = [x[1] for x in nx.bfs_edges(graph_1, source = "Martin Kampmann") ]
     my_bfs.remove('Martin Kampmann') # written BFS algorithm contains the start node 
+    nx_bfs = [x[1] for x in nx.bfs_edges(tiny_network, source = "Martin Kampmann") ]
     assert my_bfs == nx_bfs
 
 test_bfs_traversal()   
 
-print( nx.shortest_path(G= graph_1, source="Martin Kampmann", target= "Michael Keiser") )
 
 
 def test_bfs():
@@ -37,11 +36,17 @@ def test_bfs():
     which should return None. 
     """
     my_bfs = graph.Graph(filename= "data/citation_network.adjlist").bfs(start= "Martin Kampmann")
-    nx_bfs = [x[1] for x in nx.bfs_edges(graph_2, source = "Martin Kampmann") ]
+    nx_bfs = [x[1] for x in nx.bfs_edges(citation_network, source = "Martin Kampmann") ]
     my_bfs.remove('Martin Kampmann') # written BFS algorithm contains the start node 
-
-    #shortest paths 
-    # 
     assert my_bfs == nx_bfs
 
-# test_bfs()
+    #shortest paths 
+    my_bfs_path = graph.Graph(filename= "data/citation_network.adjlist").bfs(start= "Martin Kampmann", end = "Michael Keiser")
+    print( "my", my_bfs_path)
+    nx_bfs_path = [i for i in nx.shortest_path(G=citation_network, source="Martin Kampmann", target= "Michael Keiser") ]
+    print("nx",nx_bfs_path)
+    assert my_bfs_path == nx_bfs_path
+    
+    
+
+test_bfs()

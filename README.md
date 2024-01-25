@@ -3,7 +3,7 @@ Breadth-first search
 
 # Description of methods
 * Use BFS to perform search
-* Use modifiedDijkstra's algorithm to return shortest path 
+* Use modified Dijkstra's algorithm to return shortest path 
 	* weights are all equal to 1
 
 # Assignment Overview

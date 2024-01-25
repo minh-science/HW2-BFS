@@ -48,6 +48,7 @@ def test_bfs():
     Include an additional test for nodes that are not connected 
     which should return None. 
     """
+    # assert traversal is the same for large dataset ('citation_network.adjlist')
     my_bfs = graph.Graph(filename= "data/citation_network.adjlist").bfs(start= "Martin Kampmann")
     nx_bfs = [x[1] for x in nx.bfs_edges(citation_network, source = "Martin Kampmann") ]
     my_bfs.remove('Martin Kampmann') # written BFS algorithm contains the start node 
@@ -56,10 +57,21 @@ def test_bfs():
     #shortest paths 
     my_bfs_path = graph.Graph(filename= "data/citation_network.adjlist").bfs(start= "Martin Kampmann", end = "Michael Keiser")
     nx_bfs_paths = [i for i in nx.all_shortest_paths(G=citation_network, source="Martin Kampmann", target= "Michael Keiser") ]
-    print(my_bfs_path )
+    # print(my_bfs_path )
     # print(nx_bfs_paths)
     assert my_bfs_path in nx_bfs_paths
-    
-    
+
+    #unconnected paths 
+    connections = graph.Graph(filename= "data/citation_network.adjlist").bfs(start= "Martin Kampmann")
+    all= citation_network.nodes()
+    diff = all - connections
+    unconnected = 'Alexander (Sandy) Johnson'
+    # if unconnected in diff:
+    #     print(unconnected, 'is not connected')
+    my_bfs_unconnected = graph.Graph(filename= "data/citation_network.adjlist").bfs(start= "Martin Kampmann", end = unconnected)
+    assert my_bfs_unconnected == None
+
+
+
 
 test_bfs()

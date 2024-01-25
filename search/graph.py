@@ -27,43 +27,74 @@ class Graph:
 
         # maybe try using successors? is a generator though
         # print(f"successors of start (node: {start}):", [i for i in self.graph.successors(start)] )
-        while len(Q) != 0:
+
+        X = []
+        Y = []   
+        V = self.graph.nodes()
+        d = {v:float('inf')  for v in V} # assign d for all to be very high (should be infinity)
+        d[start] = 0 
+        prev = {v : None for v in V}
+     
+
+        while Q:
             v = Q.pop(0)
-            # ed = self.graph.edges(nbunch = v) #neighbors
-            N = list(self.graph.neighbors(v))
-            # print(N)
-            # i = next(self.graph.successors(v))
 
             # find path from start to end
             if end != None and v == end:
-                print(visited)
-                return "completed search", visited
+                shortest_path = self.construct_path(prev, start,end)
+                return shortest_path
+            
+            # ed = self.graph.edges(nbunch = v) #neighbors
+            N = list(self.graph.neighbors(v))
+            # for i in N:
+            #     if len(Y) == 0:
+            #         Y.append(i)
+            #         # print(Y)
+            #     # for j in Y:
+            #     #     print(j)
+            #     #     if i != j:
+            #     #         Y.append(i)
+            # # print(N)
+            # # i = next(self.graph.successors(v))
+
             
             # append to frontier
             for w in N: 
                 if w not in visited: 
-                    # print(w)
                     visited.append(w)
                     Q.append(w)
 
-        # print("visited nodes", visited)
-        return visited
+                if d[v] +1 < d[w]:
+                    d[w] = d[v]+ 1
+                    prev[w] = v
 
+                # Update X and Y
+                if w not in X and w not in Y:
+                    Y.append(w)
+                if w in Y:
+                    Y.remove(w)
+                    X.append(w)
 
-A = Graph(filename= "data/citation_network.adjlist").bfs(start= "Martin Kampmann", end = "Michael Keiser") 
+        if end != None:
+            return None
+        else:
+            return visited
+        
+    def construct_path(self, prev, start, end):
+        path = []
+        current_node = end
+        while current_node is not None:
+            path.insert(0, current_node)
+            current_node = prev[current_node]
+        return path
+    
+        
+
+A = Graph(filename= "data/tiny_network.adjlist").bfs(start= "Martin Kampmann", end = "Michael Keiser") 
+print(A)
 # B = Graph(filename= "data/citation_network.adjlist").bfs(start= "Michael Keiser", end = "Martin Kampmann") 
 
 
-# filename= "data/tiny_network.adjlist"
-# graph_1 = nx.read_adjlist(filename, create_using=nx.DiGraph, delimiter=";")
+
 Test1 = Graph(filename= "data/tiny_network.adjlist").bfs(start= "Martin Kampmann") 
-
-# print("other bfs", [x[1] for x in nx.bfs_edges(graph_1, source = "Martin Kampmann") ] )
-
-# print("successors", [x  for x in nx.bfs_successors(graph_1, source = "Martin Kampmann") ] )
-# print("Test1:", Test1)
-
-
-
-
-# try doing diksthras or whateber
+# print(Test1)

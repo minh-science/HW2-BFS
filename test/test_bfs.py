@@ -20,7 +20,10 @@ def test_bfs_traversal():
     my_bfs.remove('Martin Kampmann') # written BFS algorithm contains the start node 
     assert my_bfs == nx_bfs
 
-test_bfs_traversal()    
+test_bfs_traversal()   
+
+print( nx.shortest_path(G= graph_1, source="Martin Kampmann", target= "Michael Keiser") )
+
 
 def test_bfs():
     """
@@ -36,6 +39,9 @@ def test_bfs():
     my_bfs = graph.Graph(filename= "data/citation_network.adjlist").bfs(start= "Martin Kampmann")
     nx_bfs = [x[1] for x in nx.bfs_edges(graph_2, source = "Martin Kampmann") ]
     my_bfs.remove('Martin Kampmann') # written BFS algorithm contains the start node 
+
+    #shortest paths 
+    # 
     assert my_bfs == nx_bfs
 
-test_bfs()
+# test_bfs()

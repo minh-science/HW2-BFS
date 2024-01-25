@@ -23,4 +23,4 @@ dependencies = [
 ]
 
 [project.urls]
-Home = "https://github.com/minh-science/HW1-FAST-AQ-Parser"
+Home = "https://github.com/minh-science/HW2-BFS"

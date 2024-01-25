@@ -45,7 +45,6 @@ class Graph:
                     # print(w)
                     visited.append(w)
                     Q.append(w)
-                    print(visited)
 
         # print("visited nodes", visited)
         return visited
@@ -62,7 +61,7 @@ Test1 = Graph(filename= "data/tiny_network.adjlist").bfs(start= "Martin Kampmann
 # print("other bfs", [x[1] for x in nx.bfs_edges(graph_1, source = "Martin Kampmann") ] )
 
 # print("successors", [x  for x in nx.bfs_successors(graph_1, source = "Martin Kampmann") ] )
-print("Test1:", Test1)
+# print("Test1:", Test1)
 
 
 

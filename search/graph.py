@@ -23,10 +23,6 @@ class Graph:
         """
         Q = [start] # initialize the queue
         visited = [start] # initialize the list of visited nodes  
-        # paths = [] 
-
-        # maybe try using successors? is a generator though
-        # print(f"successors of start (node: {start}):", [i for i in self.graph.successors(start)] )
 
         V = self.graph.nodes()
 
@@ -39,32 +35,14 @@ class Graph:
         d[start] = 0 
         prev = {v : None for v in V}
      
-
-
         while Q:
             v = Q.pop(0)
-
-            # find path from start to end
-            if end != None and v == end:
-                shortest_path = self.construct_path(prev, start,end)
-                return shortest_path
-
             
             # ed = self.graph.edges(nbunch = v) #neighbors
             try:
                 N = list(self.graph.neighbors(v))
             except:
                 raise ValueError(f"no edges connecting start: {start}")
-            # for i in N:
-            #     if len(Y) == 0:
-            #         Y.append(i)
-            #         # print(Y)
-            #     # for j in Y:
-            #     #     print(j)
-            #     #     if i != j:
-            #     #         Y.append(i)
-            # # print(N)
-            # # i = next(self.graph.successors(v))
 
             
             # append to frontier
@@ -84,6 +62,11 @@ class Graph:
                     Y.remove(w)
                     X.append(w)
 
+            # find path from start to end
+            if end is not None and v == end:
+                shortest_path = self.construct_path(prev, start,end)
+                return shortest_path
+
         if end != None:
             return None
         else:
@@ -92,13 +75,11 @@ class Graph:
     def construct_path(self, prev, start, end):
         path = []
         current_node = end
-        print(current_node)
-        if current_node is not None:
+        while current_node is not None: 
             path.insert(0, current_node)
             current_node = prev[current_node]
         return path
     
         
-
-A = Graph(filename= "data/unconnected.adjlist").bfs(start= "connected1", end = "unconnected1") 
-print(A)
+# test = Graph(filename= "data/tiny_network.adjlist").bfs(start= "Martin Kampmann", end = "Hani Goodarzi")
+# print(test )

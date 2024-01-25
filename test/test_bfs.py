@@ -56,8 +56,8 @@ def test_bfs():
     #shortest paths 
     my_bfs_path = graph.Graph(filename= "data/citation_network.adjlist").bfs(start= "Martin Kampmann", end = "Michael Keiser")
     nx_bfs_paths = [i for i in nx.all_shortest_paths(G=citation_network, source="Martin Kampmann", target= "Michael Keiser") ]
-    # for i in nx_bfs_paths:
-    #     print(i)
+    print(my_bfs_path )
+    # print(nx_bfs_paths)
     assert my_bfs_path in nx_bfs_paths
     
     

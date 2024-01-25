@@ -28,13 +28,18 @@ class Graph:
         # maybe try using successors? is a generator though
         # print(f"successors of start (node: {start}):", [i for i in self.graph.successors(start)] )
 
+        V = self.graph.nodes()
+
+        if len(V) == 0:
+            raise ValueError("has no nodes")
+
         X = []
         Y = []   
-        V = self.graph.nodes()
         d = {v:float('inf')  for v in V} # assign d for all to be very high (should be infinity)
         d[start] = 0 
         prev = {v : None for v in V}
      
+
 
         while Q:
             v = Q.pop(0)
@@ -43,9 +48,13 @@ class Graph:
             if end != None and v == end:
                 shortest_path = self.construct_path(prev, start,end)
                 return shortest_path
+
             
             # ed = self.graph.edges(nbunch = v) #neighbors
-            N = list(self.graph.neighbors(v))
+            try:
+                N = list(self.graph.neighbors(v))
+            except:
+                raise ValueError(f"no edges connecting start: {start}")
             # for i in N:
             #     if len(Y) == 0:
             #         Y.append(i)
@@ -83,17 +92,13 @@ class Graph:
     def construct_path(self, prev, start, end):
         path = []
         current_node = end
-        while current_node is not None:
+        print(current_node)
+        if current_node is not None:
             path.insert(0, current_node)
             current_node = prev[current_node]
         return path
     
         
 
-# A = Graph(filename= "data/tiny_network.adjlist").bfs(start= "Martin Kampmann", end = "Michael Keiser") 
-# B = Graph(filename= "data/citation_network.adjlist").bfs(start= "Michael Keiser", end = "Martin Kampmann") 
-
-
-
-# Test1 = Graph(filename= "data/tiny_network.adjlist").bfs(start= "Martin Kampmann") 
-# print(Test1)
+A = Graph(filename= "data/unconnected.adjlist").bfs(start= "connected1", end = "unconnected1") 
+print(A)

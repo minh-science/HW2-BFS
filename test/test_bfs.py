@@ -18,7 +18,20 @@ def test_bfs_traversal():
     my_bfs = graph.Graph(filename= "data/tiny_network.adjlist").bfs(start= "Martin Kampmann")
     my_bfs.remove('Martin Kampmann') # written BFS algorithm contains the start node 
     nx_bfs = [x[1] for x in nx.bfs_edges(tiny_network, source = "Martin Kampmann") ]
+
+    # assert right number of nodes
+    assert len(my_bfs) == len(nx_bfs) 
+
+    #assert right order of nodes
     assert my_bfs == nx_bfs
+
+    # running BFS on empty graph
+    with pytest.raises(ValueError):
+        graph.Graph(filename= "data/empty.adjlist").bfs(start= "Martin Kamann", end = "Michael Keiser") 
+
+    # running BFS traversal from start node that does not exist in the graph
+    with pytest.raises(ValueError):
+        graph.Graph(filename= "data/tiny_network.adjlist").bfs(start= "Martin Kamann", end = "Michael Keiser") 
 
 test_bfs_traversal()   
 

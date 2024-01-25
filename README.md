@@ -1,6 +1,11 @@
 # Assignment 2
 Breadth-first search
 
+# Description of methods
+* Use BFS to perform search
+* Use modifiedDijkstra's algorithm to return shortest path 
+	* weights are all equal to 1
+
 # Assignment Overview
 The purpose of this assignment is to get you comfortable working with graph structures and to implement a breadth-first search function to traverse the graph and find the shortest path between nodes.
 
